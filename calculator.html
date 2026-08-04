@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="calculator.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+</head>
+
+<body>
+    <h1> Calculator Project</h1>
+    <p> Developed by Husen Pathan</p>
+    
+    <div id="calculator">
+        <input type="text"id="display" readonly>
+        <div class="button-store">
+            <button class="button-c"onclick="currentdisplay='';document.querySelector('#display').value=currentdisplay;">c</button>
+            <button class="backspace" onclick="backspace()"><i class="fa-solid fa-delete-left"></i></button>
+            <button class="button-module" onclick="currentdisplay=currentdisplay+'%';document.querySelector('#display').value=currentdisplay;">%</button>
+             <button class="button-div"onclick="currentdisplay=currentdisplay+'/';document.querySelector('#display').value=currentdisplay;">/</button>
+            <button class="button" onclick="currentdisplay=currentdisplay+'1';document.querySelector('#display').value=currentdisplay;">1</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'2';document.querySelector('#display').value=currentdisplay;">2</button>
+           <button class="button"onclick="currentdisplay=currentdisplay+'3';document.querySelector('#display').value=currentdisplay;">3</button>
+            <button class="button-add"onclick="currentdisplay=currentdisplay+'+';document.querySelector('#display').value=currentdisplay;">+</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'4';document.querySelector('#display').value=currentdisplay;">4</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'5';document.querySelector('#display').value=currentdisplay;">5</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'6';document.querySelector('#display').value=currentdisplay;">6</button>
+            <button class="button-sub"onclick="currentdisplay=currentdisplay+'-';document.querySelector('#display').value=currentdisplay;">-</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'7';document.querySelector('#display').value=currentdisplay;">7</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'8';document.querySelector('#display').value=currentdisplay;">8</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'9';document.querySelector('#display').value=currentdisplay;">9</button>
+             <button class="button-mul"onclick="currentdisplay=currentdisplay+'*';document.querySelector('#display').value=currentdisplay;">*</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'.';document.querySelector('#display').value=currentdisplay;">.</button>
+            <button class="button"onclick="currentdisplay=currentdisplay+'0';document.querySelector('#display').value=currentdisplay;">0</button>
+            <button class="button-equal" onclick="let result=eval(currentdisplay);
+            currentdisplay=result; document.querySelector('#display').value=currentdisplay;">=</button>
+            </div>
+        
+    </div>
+    
+    <script src="calculator.js"></script>
+</body>
+
+<script>
+    let currentdisplay='';
+document.querySelector('#display').value=currentdisplay;
+
+
+function backspace(){
+currentdisplay=currentdisplay.slice(0, -1);
+document.querySelector("#display").value=currentdisplay;
+}
+
+
+document.addEventListener("keydown", function(event) {
+
+    let key = event.key;
+
+    // Numbers
+    if ("0123456789".includes(key)) {
+        currentdisplay += key;
+    }
+
+    // Operators
+    else if ("+-*/.".includes(key)) {
+        currentdisplay += key;
+    }
+
+    // Enter = Calculate
+    else if (key === "Enter") {
+        currentdisplay = eval(currentdisplay).toString();
+    }
+
+    // Backspace
+    else if (key === "Backspace") {
+        currentdisplay = currentdisplay.slice(0, -1);
+    }
+
+    // Escape = Clear
+    else if (key === "Escape") {
+        currentdisplay = "";
+    }
+
+    document.querySelector("#display").value = currentdisplay;
+});
+
+
+</script>
+
+</html>
