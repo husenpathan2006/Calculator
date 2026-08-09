@@ -514,7 +514,8 @@ box-shadow:0 0 6px #f59e0b;
     }
 
     #calculator {
-        width: 350px;
+        width: 200px;
+        height: 300px;
         max-width: 90%;
         margin: 30px auto 0;
     }
@@ -526,7 +527,7 @@ box-shadow:0 0 6px #f59e0b;
 
     .history-section {
         width: 90%;
-        padding: 15px;
+        padding: 20px;
     
     }
 
