@@ -8,12 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>calculator</title>
 </head>
+<!-- Navbar -->
+<nav class="navbar">
+
+    <div class="nav-logo">
+        <img src="profile.jpg.jpeg" alt="Husen Pathan">
+        <div class="logo-text"><h2> Husen Pathan </h2>
+        <p> Calculator Web Application</p></div>
+        
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#calculator">Home</a>
+
+        <a href="#footer">About</a>
+        
+
+        <a href="#contact">Contact</a>
+
+        <a href="https://github.com/husenpathan2006/Calculator"
+           target="_blank"
+           class="github-btn">
+            View GitHub
+        </a>
+
+    </div>
+
+</nav>
 
 <body>
-    <h1> Calculator Project</h1>
-    <p> Developed by Husen Pathan</p>
-    
-    <div id="calculator">
+    <div class="calculator-section">
+     <div id="calculator">
         <input type="text"id="display" readonly>
         <div class="button-store">
             <button class="button-c"onclick="currentdisplay='';document.querySelector('#display').value=currentdisplay;">c</button>
@@ -34,13 +60,139 @@
              <button class="button-mul"onclick="currentdisplay=currentdisplay+'*';document.querySelector('#display').value=currentdisplay;">*</button>
             <button class="button"onclick="currentdisplay=currentdisplay+'.';document.querySelector('#display').value=currentdisplay;">.</button>
             <button class="button"onclick="currentdisplay=currentdisplay+'0';document.querySelector('#display').value=currentdisplay;">0</button>
-            <button class="button-equal" onclick="let result=eval(currentdisplay);
-            currentdisplay=result; document.querySelector('#display').value=currentdisplay;">=</button>
+            <button class="button-equal" onclick="calculate()">= </button>
             </div>
         
     </div>
     
-    <script src="calculator.js"></script>
+  
+    <!-- Calculation History -->
+<section class="history-section" id="history">
+
+    <h2>Calculation History</h2>
+
+    <!-- Search -->
+    <input
+        type="text"
+        id="historySearch"
+        placeholder="🔎 Search calculation..."
+        oninput="searchHistory()"
+    >
+
+    <div id="historyList">
+        <p class="empty-history">No calculations yet</p>
+    </div>
+
+    <button class="clear-history" onclick="clearHistory()">
+        🗑️ Clear History
+    </button>
+
+</section>
+</div>
+
+
+
+
+
+<footer id="footer"><div class="footer-logo">
+    <h2>Husen Pathan</h2>
+    <p>Calculator Web Application</p>
+</div>
+
+<div class="footer-features">
+
+    <div class="feature-box">
+        <h3>Free to Use</h3>
+        <p>Simple calculator available for everyone, completely free to use.</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>Responsive</h3>
+        <p>Designed to work smoothly on mobile, tablet and desktop devices.</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>Fast & Modern</h3>
+        <p>Clean, fast and modern interface for a smooth user experience.</p>
+    </div>
+
+</div>
+
+<div class="footer-bottom">
+    <p>© 2026 Husen Pathan. All Rights Reserved.</p>
+</div>
+
+</footer>
+<section id="contact" class="contact-section">
+
+    <div class="contact-container">
+
+        <!-- Contact Information -->
+        <div class="contact-box">
+            <h2>Contact Me</h2>
+            <p class="contact-intro">
+                Have a question or want to connect? Feel free to reach out.
+            </p>
+
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Location</h4>
+                    <p>Wadhona, Taluka Udgir, District Latur</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>Phone</h4>
+                    <p>7249154929</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email</h4>
+                    <p>husenpathan134@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Social Links -->
+        <div class="social-box">
+            <h2>Connect With Me</h2>
+            <p>Follow me and stay connected.</p>
+
+            <div class="social-links">
+
+                <a href="https://github.com/husenpathan2006/Calculator" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+
+                <a href="https://www.instagram.com/husenpahan_07/"
+                   target="_blank"
+                   class="social-link"
+                   aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>@husenpahan_07</span>
+                </a>
+
+                <a href="husenpathan134@gmail.com"
+                   class="social-link"
+                   aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Me</span>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
 </body>
 
 <script>
@@ -70,7 +222,8 @@ document.addEventListener("keydown", function(event) {
 
     // Enter = Calculate
     else if (key === "Enter") {
-        currentdisplay = eval(currentdisplay).toString();
+        calculate();
+        return;
     }
 
     // Backspace
@@ -85,6 +238,144 @@ document.addEventListener("keydown", function(event) {
 
     document.querySelector("#display").value = currentdisplay;
 });
+
+
+
+function calculate() {
+
+    if (currentdisplay === "") {
+        return;
+    }
+
+    try {
+
+        let expression = currentdisplay;
+        let result = eval(currentdisplay);
+
+        currentdisplay = result.toString();
+
+        document.querySelector("#display").value = currentdisplay;
+
+        saveCalculation(expression, result);
+
+    } catch (error) {
+
+        document.querySelector("#display").value = "Error";
+
+        currentdisplay = "";
+
+    }
+}
+
+
+// ==========================
+// CALCULATION HISTORY
+// ==========================
+
+let calculationHistory =
+    JSON.parse(localStorage.getItem("calculationHistory")) || [];
+
+
+function saveCalculation(input, result) {
+
+    calculationHistory.unshift({
+        input: input,
+        result: result
+    });
+
+    localStorage.setItem(
+        "calculationHistory",
+        JSON.stringify(calculationHistory)
+    );
+
+    showHistory();
+}
+
+
+function showHistory(list = calculationHistory) {
+
+    const historyList =
+        document.querySelector("#historyList");
+
+    historyList.innerHTML = "";
+
+    if (list.length === 0) {
+
+        historyList.innerHTML =
+            '<p class="empty-history">No calculations yet</p>';
+
+        return;
+    }
+
+    list.forEach((item, index) => {
+
+        historyList.innerHTML += `
+            <div class="history-item">
+
+                <div>
+                    <div class="history-input">
+                        ${item.input}
+                    </div>
+
+                    <div class="history-result">
+                        = ${item.result}
+                    </div>
+                </div>
+
+                <button onclick="deleteHistory(${index})">
+                    🗑️
+                </button>
+
+            </div>
+        `;
+    });
+}
+
+
+function searchHistory() {
+
+    const search =
+        document.querySelector("#historySearch")
+        .value
+        .toLowerCase();
+
+    const filtered =
+        calculationHistory.filter(item =>
+            item.input.toLowerCase().includes(search) ||
+            String(item.result).includes(search)
+        );
+
+    showHistory(filtered);
+}
+
+
+function deleteHistory(index) {
+
+    calculationHistory.splice(index, 1);
+
+    localStorage.setItem(
+        "calculationHistory",
+        JSON.stringify(calculationHistory)
+    );
+
+    showHistory();
+}
+
+
+function clearHistory() {
+
+    calculationHistory = [];
+
+    localStorage.removeItem("calculationHistory");
+
+    showHistory();
+}
+
+
+// Website open hone par purani history dikhao
+showHistory();
+
+
 
 
 </script>
